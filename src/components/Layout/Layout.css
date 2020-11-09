@@ -1,12 +1,30 @@
 nav {
   margin: 20px auto 0;
-
   position: relative;
   width: 650px;
   height: 30px;
   background-color: #021324;
   border-radius: 8px;
   font-size: 0;
+}
+.mobile-menu {
+  display: none;
+}
+@media only screen and (max-width: 773px) {
+  nav {
+    width: 100%;
+  }
+  .mobile-menu {
+    display: none;
+  }
+}
+@media only screen and (max-width: 590px) {
+  nav.menu {
+    display: none;
+  }
+  .mobile-menu {
+    display: block;
+  }
 }
 nav a {
   line-height: 30px;
@@ -233,7 +251,7 @@ body {
   margin-top: 20px;
 }
 .img-header .welcome .hero-btns > button,
-.img-header .welcome .hero-btns > a {
+#login-btn {
   text-decoration: none;
   width: 170px;
   height: 40px;
@@ -261,16 +279,27 @@ body {
   color: aliceblue;
   border: solid aliceblue 2px;
 }
+#login-btn {
+  text-decoration: none;
+  padding-top: 4px;
+}
 @media only screen and (max-width: 773px) {
   .img-header .welcome h1 {
     font-size: 40px;
   }
-  .img-header .welcome .hero-btns > button {
-    width: 130px;
+  .img-header .welcome .hero-btns > button,
+  #login-btn {
+    width: 160px;
     font-size: 20px;
+  }
+  #login-btn {
+    padding-top: 6px;
   }
 }
 @media only screen and (max-width: 590px) {
+  #login-btn {
+    padding-top: 7px;
+  }
   .img-header .welcome h1 {
     font-size: 30px;
   }
@@ -280,8 +309,9 @@ body {
   .img-header .welcome p {
     font-size: 17px;
   }
-  .img-header .welcome .hero-btns > button {
-    width: 100px;
+  .img-header .welcome .hero-btns > button,
+  #login-btn {
+    width: 150px;
     font-size: 17px;
   }
 }
@@ -390,10 +420,31 @@ body {
     width: 80%;
     margin-bottom: 30px;
   }
+  .our-projects {
+    margin-top: 30px;
+  }
+  .our-projects .container-project {
+    width: 100%;
+    margin-bottom: 100px;
+    padding: 0;
+  }
 }
 @media only screen and (max-width: 446px) {
   .our-projects .container-project .project-title h2 {
     font-size: 30px;
+  }
+  .deg-background,
+  .skew-arriba,
+  .skew-abajo {
+    display: none;
+  }
+  .our-projects {
+    margin-top: 30px;
+  }
+  .our-projects .container-project {
+    width: 100%;
+    margin-bottom: 100px;
+    padding: 0;
   }
 }
 

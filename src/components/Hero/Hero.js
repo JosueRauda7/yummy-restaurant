@@ -15,9 +15,15 @@ const Hero = (props) => {
             justifyContent: "space-between",
           }}>
           <button id='abajo'>Ver abajo</button>
-          <Link to='/login' id='login-btn'>
-            Ingresar
-          </Link>
+          {props.isLog ? (
+            <Link to='/reservacion' id='login-btn'>
+              Reservación
+            </Link>
+          ) : (
+            <Link to='/login' id='login-btn'>
+              Ingresar
+            </Link>
+          )}
         </div>
       </div>
     </div>

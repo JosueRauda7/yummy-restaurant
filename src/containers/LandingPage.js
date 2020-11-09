@@ -5,7 +5,7 @@ import Hero from "../components/Hero/Hero";
 const LandingPage = (props) => {
   return (
     <div>
-      <Hero />
+      <Hero isLog={props.isLog} />
       <AboutUs />
     </div>
   );

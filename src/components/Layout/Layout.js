@@ -6,7 +6,7 @@ import "./Layout.css";
 const Layout = (props) => {
   return (
     <div>
-      <Header />
+      <Header isLog={props.isLog} />
       {props.children}
       <Footer showContact={props.location.pathname !== "/login"} />
     </div>

@@ -1,15 +1,31 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 const Login = (props) => {
   const [formSelected, setFormSelected] = useState("Ingresar");
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    passwordConfirm: "",
+  });
+  const [error, setError] = useState(null);
 
-  const toogleForm = () => {
-    if (formSelected === "Ingresar") {
-      setFormSelected("Registrarse");
-    } else {
-      setFormSelected("Ingresar");
-    }
+  const toogleForm = (selection) => {
+    setError(null);
+    setUser({
+      email: "",
+      password: "",
+      passwordConfirm: "",
+    });
+    setFormSelected(selection);
+  };
+
+  const handlePassswordVerify = (e) => {
+    setUser({
+      ...user,
+      passwordConfirm: e.target.value,
+    });
   };
 
   const handleEmailChange = (e) => {
@@ -26,32 +42,57 @@ const Login = (props) => {
     });
   };
 
+  let errorLbl = null;
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    login();
+    if (formSelected === "Registrarse") {
+      if (user.password !== user.passwordConfirm) {
+        setError("La contraseña no coincide.");
+      } else {
+        login();
+      }
+    } else {
+      errorLbl = null;
+      login();
+    }
   };
 
-  const login = async () => {
-    fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAufGa_G8iSpjSsu08ncty6z0ZfWcIDhSw",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: {
-          email: user.email,
-          password: user.password,
-          returnSecureToken: true,
-        },
-      }
-    )
-      .then((res) => console.log(res))
+  if (error) {
+    errorLbl = (
+      <p
+        style={{
+          color: "#E94F37",
+        }}>
+        La contraseña no coincide.
+      </p>
+    );
+  }
+
+  const login = () => {
+    const body = {
+      email: user.email,
+      password: user.password,
+      returnSecureToken: true,
+    };
+    let url =
+      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAufGa_G8iSpjSsu08ncty6z0ZfWcIDhSw";
+    if (formSelected === "Ingresar") {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAufGa_G8iSpjSsu08ncty6z0ZfWcIDhSw";
+    }
+    axios
+      .post(url, body)
+      .then((res) => {
+        localStorage.setItem("token", res.data.idToken);
+        props.changeLogged(true);
+      })
       .catch((err) => console.log(err));
   };
 
   return (
     <section className='our-projects'>
+      {props.isLog ? <Redirect to='/' /> : null}
       <div className='skew-arriba'></div>
       <div className='deg-background'></div>
 
@@ -60,7 +101,7 @@ const Login = (props) => {
           <div className='project-title'>
             <div className='wrapper'>
               <div className='title-text'>
-                <div className='title login'>Login Form</div>
+                <div className='title login'>Formulario de Sesión</div>
                 <div className='title signup'>Signup Form</div>
               </div>
               <div className='form-container'>
@@ -69,25 +110,25 @@ const Login = (props) => {
                     type='radio'
                     name='slide'
                     id='login'
-                    checked={formSelected === "Ingresar"}
+                    // checked={formSelected === "Ingresar"}
                   />
                   <input
                     type='radio'
                     name='slide'
                     id='signup'
-                    checked={formSelected !== "Ingresar"}
+                    // checked={formSelected !== "Ingresar"}
                   />
                   <label
-                    for='login'
-                    onClick={toogleForm}
+                    htmlFor='login'
+                    onClick={() => toogleForm("Ingresar")}
                     className='slide login'>
-                    Login
+                    Ingresar
                   </label>
                   <label
-                    for='signup'
-                    onClick={toogleForm}
+                    htmlFor='signup'
+                    onClick={() => toogleForm("Registrarse")}
                     className='slide signup'>
-                    Signup
+                    Registrarse
                   </label>
                   <div className='slider-tab'></div>
                 </div>
@@ -97,6 +138,7 @@ const Login = (props) => {
                       <input
                         type='email'
                         placeholder='Email Address'
+                        value={user.email}
                         onChange={(e) => handleEmailChange(e)}
                         required
                       />
@@ -105,6 +147,7 @@ const Login = (props) => {
                       <input
                         type='password'
                         placeholder='Password'
+                        value={user.password}
                         onChange={(e) => handlePassswordChange(e)}
                         required
                       />
@@ -114,8 +157,11 @@ const Login = (props) => {
                         <input
                           type='password'
                           placeholder='Confirm password'
+                          value={user.passwordConfirm}
+                          onChange={(e) => handlePassswordVerify(e)}
                           required
                         />
+                        {errorLbl}
                       </div>
                     ) : null}
                     <div className='field btn'>

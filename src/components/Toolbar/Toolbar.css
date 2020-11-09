@@ -1,0 +1,33 @@
+.toolbar-mobile {
+  z-index: 555;
+  width: 60%;
+  background: #002a32;
+  color: black;
+  height: 100vh;
+  transition: transform 0.3s ease-out;
+  position: fixed;
+  left: 0;
+}
+
+.Opened {
+  transform: translateX(0);
+}
+
+.Closed {
+  transform: translateX(-100%);
+}
+
+.toolbar-mobile a {
+  display: list-item;
+  color: white;
+  text-decoration: none;
+  padding: 20px;
+}
+
+.BackShadow {
+  z-index: 333;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+}

@@ -9,7 +9,7 @@ const Header = (props) => {
         <span className='fas fa-angle-up'></span>
       </div>
       {/* Menú */}
-      <Menu />
+      <Menu isLog={props.isLog} />
     </div>
   );
 };
