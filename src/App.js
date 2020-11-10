@@ -5,6 +5,8 @@ import LandingPage from "./containers/LandingPage";
 import Login from "./containers/Login";
 import Logout from "./containers/Logout";
 import Menu from "./containers/Menu/Menu";
+import Ordenar from "./containers/Ordenar/Ordenar";
+import Reservacion from "./containers/Reservacion/Reservacion";
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -29,6 +31,16 @@ function App() {
             render={() => <Login isLog={isLogged} changeLogged={setIsLogged} />}
           />
           <Route exact path='/menu' component={Menu} />
+          <Route
+            exact
+            path='/ordenar'
+            render={() => <Ordenar isLog={isLogged} />}
+          />
+          <Route
+            exact
+            path='/reservacion'
+            render={() => <Reservacion isLog={isLogged} />}
+          />
           <Route
             exact
             path='/'

@@ -16,8 +16,8 @@ const Hero = (props) => {
           }}>
           <button id='abajo'>Ver abajo</button>
           {props.isLog ? (
-            <Link to='/reservacion' id='login-btn'>
-              Reservación
+            <Link to='/ordenar' id='login-btn'>
+              Ordenar
             </Link>
           ) : (
             <Link to='/login' id='login-btn'>

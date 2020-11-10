@@ -28,6 +28,9 @@ const ToolbarMobile = (props) => {
         <Link onClick={() => props.close()} to='/menu'>
           Menú
         </Link>
+        <Link onClick={() => props.close()} to='/ordenar'>
+          Ordenar
+        </Link>
         <Link onClick={() => props.close()} to='/reservacion'>
           Reservar
         </Link>

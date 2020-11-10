@@ -93,7 +93,14 @@ const Login = (props) => {
         localStorage.setItem("token", res.data.idToken);
         props.changeLogged(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Usuario incorrecto",
+          text: "Verifica que los datos sean correctos!",
+        });
+        console.log(err);
+      });
   };
 
   return (
