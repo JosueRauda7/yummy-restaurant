@@ -4,6 +4,13 @@ import "./Menu.css";
 const Menu = (props) => {
   return (
     <div className='container'>
+      <h1
+        style={{
+          margin: "18px 0",
+          fontSize: "3em",
+        }}>
+        Menú
+      </h1>
       <div className='gallery'>
         <figure className='gallery__item gallery__item--1'>
           <img
