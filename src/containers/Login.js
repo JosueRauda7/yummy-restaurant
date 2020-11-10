@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = (props) => {
   const [formSelected, setFormSelected] = useState("Ingresar");
@@ -51,6 +52,11 @@ const Login = (props) => {
         setError("La contraseña no coincide.");
       } else {
         login();
+        Swal.fire(
+          "Te has registrado!",
+          "Puedes empezar a realizar tus reservaciones!",
+          "success"
+        );
       }
     } else {
       errorLbl = null;
