@@ -1,5 +1,6 @@
 import React from "react";
 import AboutUs from "../components/AboutUs/AboutUs";
+import Developers from "../components/Developers/Developers";
 import Hero from "../components/Hero/Hero";
 
 const LandingPage = (props) => {
@@ -7,6 +8,7 @@ const LandingPage = (props) => {
     <div>
       <Hero isLog={props.isLog} />
       <AboutUs />
+      <Developers />
     </div>
   );
 };

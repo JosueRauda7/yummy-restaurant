@@ -4,6 +4,7 @@ import Layout from "./components/Layout/Layout";
 import LandingPage from "./containers/LandingPage";
 import Login from "./containers/Login";
 import Logout from "./containers/Logout";
+import Menu from "./containers/Menu/Menu";
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -27,6 +28,7 @@ function App() {
             path='/login'
             render={() => <Login isLog={isLogged} changeLogged={setIsLogged} />}
           />
+          <Route exact path='/menu' component={Menu} />
           <Route
             exact
             path='/'
