@@ -50,8 +50,8 @@ const Menu = (props) => {
           <nav>
             <Link to='/'>Inicio</Link>
             <Link to='/menu'>Menú</Link>
-            <Link to='/ordenar'>Ordenar</Link>
             <Link to='/reservacion'>Reservar</Link>
+            <Link to='/ordenar'>Ordenar</Link>
             {props.isLog ? (
               <Link to='/logout'>Cerrar Sesión</Link>
             ) : (

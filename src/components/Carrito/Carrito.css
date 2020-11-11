@@ -1,0 +1,29 @@
+.Carrito {
+  position: fixed;
+  margin-top: 15vh;
+  right: 0;
+  background-color: #ff1053;
+  color: white;
+  z-index: 99;
+  padding: 5px 20px;
+  padding-top: 10px;
+  cursor: pointer;
+  box-shadow: 0px 0px 5px black;
+}
+
+.Carrito:hover {
+  background-color: #f42272;
+}
+
+@media only screen and (max-width: 446px) {
+  .Carrito {
+    font-size: smaller;
+    padding: 2px 7px;
+    margin-top: 3vh;
+    margin-right: 10px;
+    border-radius: 100%;
+    padding-top: 9px;
+    padding-left: 9px;
+    box-shadow: 0px 0px 5px black;
+  }
+}

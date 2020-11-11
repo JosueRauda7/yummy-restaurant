@@ -1,0 +1,51 @@
+.total-price {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.buttons {
+  margin: 20px;
+  align-items: center;
+  display: block;
+}
+
+.primary {
+  background-color: #379634;
+}
+.continue {
+  background-color: #3185fc;
+}
+
+.btn-layer {
+  text-decoration: none;
+  color: white;
+  width: 20%;
+  padding: 10px;
+  border-radius: 4px;
+  display: block;
+  text-align: center;
+  margin: 10px auto;
+}
+
+.cancelar {
+  width: 100%;
+  display: block;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(243, 21, 65);
+}
+
+@media only screen and (max-width: 446px) {
+  .buttons {
+    margin: 20px auto;
+  }
+
+  .btn-layer {
+    width: 100%;
+    margin: 10px;
+  }
+
+  .cancelar:hover {
+    color: crimson;
+  }
+}

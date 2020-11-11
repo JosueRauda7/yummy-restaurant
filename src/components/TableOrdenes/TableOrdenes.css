@@ -1,0 +1,48 @@
+.TableOrdenes {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.TableOrdenes thead {
+  text-align: left;
+  font-size: 1.5em;
+  color: white;
+  background: #1f271b;
+}
+
+.TableOrdenes tbody {
+  background: #bcf8ec;
+}
+
+.TableOrdenes thead tr,
+.TableOrdenes tbody tr {
+  border: 0 4px transparent;
+}
+
+.TableOrdenes tbody tr td span {
+  padding-top: 11px;
+}
+
+.TableOrdenes thead tr th,
+.TableOrdenes tbody tr td {
+  padding: 10px;
+}
+.cantidad {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media only screen and (max-width: 446px) {
+  .TableOrdenes {
+    margin-left: -12%;
+    width: 122%;
+  }
+
+  .cantidad {
+    align-items: center;
+  }
+
+  .TableOrdenes tbody tr td .cantidad div {
+    padding-top: 11px;
+  }
+}

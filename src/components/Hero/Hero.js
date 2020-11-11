@@ -14,9 +14,9 @@ const Hero = (props) => {
             display: "flex",
             justifyContent: "space-between",
           }}>
-          <button id='abajo'>Ver abajo</button>
+          {/* <button id='abajo'>Ver abajo</button> */}
           {props.isLog ? (
-            <Link to='/ordenar' id='login-btn'>
+            <Link to='/menu' id='login-btn'>
               Ordenar
             </Link>
           ) : (
