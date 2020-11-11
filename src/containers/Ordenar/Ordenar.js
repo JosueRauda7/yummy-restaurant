@@ -73,4 +73,4 @@ const Ordenar = (props) => {
   );
 };
 
-export default React.memo(Ordenar);
+export default Ordenar;

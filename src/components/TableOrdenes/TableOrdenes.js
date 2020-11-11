@@ -1,13 +1,21 @@
 import { AddCircle, RemoveCircle } from "@material-ui/icons";
-import React from "react";
+import React, { useCallback } from "react";
 import "./TableOrdenes.css";
 
 const TableOrdenes = (props) => {
   let totalPrice = 0;
-  const updateTotal = (cant, price) => {
-    totalPrice += cant * price;
-    props.changeTotal(totalPrice);
-  };
+
+  const updateTotal = useCallback(
+    (cant, price) => {
+      totalPrice += cant * price;
+      props.changeTotal(totalPrice);
+    },
+    [props.removerOrden, props.anidarOrden]
+  );
+
+  props.ordenes.map((orden) => {
+    updateTotal(orden.cantidad, orden.precio);
+  });
 
   return (
     <table className='TableOrdenes'>
@@ -20,7 +28,6 @@ const TableOrdenes = (props) => {
       </thead>
       <tbody>
         {props.ordenes.map((orden) => {
-          updateTotal(orden.cantidad, orden.precio);
           if (orden.cantidad > 0) {
             return (
               <tr key={orden.id}>
