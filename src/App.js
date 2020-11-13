@@ -75,6 +75,7 @@ function App() {
   }, []);
 
   const resetearCarrito = () => {
+    localStorage.removeItem("listaCompras");
     setCarrito([]);
   };
 
@@ -141,6 +142,7 @@ function App() {
               <Ordenar
                 reset={resetearCarrito}
                 ordenes={carrito}
+                actualizarOrdenes={setCarrito}
                 removeCarrito={removerDeCarrito}
                 plantilla={initialCarrito}
                 anidarOrden={agregarCarrito}

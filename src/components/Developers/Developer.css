@@ -60,6 +60,18 @@
   }
 }
 
+@media screen and (max-width: 375px) {
+  .back {
+    padding: 13px 0;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .back {
+    padding: 0;
+  }
+}
+
 @media screen and (max-width: 800px) {
   .profile-card {
     padding: 20px 15px;

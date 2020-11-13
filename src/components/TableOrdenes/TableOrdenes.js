@@ -1,17 +1,14 @@
 import { AddCircle, RemoveCircle } from "@material-ui/icons";
-import React, { useCallback } from "react";
+import React from "react";
 import "./TableOrdenes.css";
 
 const TableOrdenes = (props) => {
   let totalPrice = 0;
 
-  const updateTotal = useCallback(
-    (cant, price) => {
-      totalPrice += cant * price;
-      props.changeTotal(totalPrice);
-    },
-    [props.removerOrden, props.anidarOrden]
-  );
+  const updateTotal = (cant, price) => {
+    totalPrice += cant * price;
+    props.changeTotal(totalPrice);
+  };
 
   props.ordenes.map((orden) => {
     updateTotal(orden.cantidad, orden.precio);
@@ -34,7 +31,7 @@ const TableOrdenes = (props) => {
                 <td>{orden.titulo}</td>
                 <td>${orden.precio.toFixed(2)}</td>
                 <td className='cantidad'>
-                  <span>x{orden.cantidad}</span>
+                  <span>x{orden.cantidad / 2}</span>
                   <div>
                     <AddCircle
                       onClick={() => props.anidarOrden(orden.id)}

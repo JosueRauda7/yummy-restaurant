@@ -22,7 +22,7 @@ const Developers = (props) => {
           </div>
         </div>
         <div className='profile-card'>
-          <div className='profile-name'>Josué Milton Rauda Ramírez</div>
+          <div className='profile-name back'>Josué Milton Rauda Ramírez</div>
           <div
             style={{
               textAlign: "center",

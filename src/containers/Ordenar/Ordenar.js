@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Swal from "sweetalert2";
 import TableOrdenes from "../../components/TableOrdenes/TableOrdenes";
@@ -14,9 +14,17 @@ const Ordenar = (props) => {
   }
 
   useEffect(() => {
+    props.actualizarOrdenes(
+      localStorage.getItem("listaCompras")
+        ? JSON.parse(localStorage.getItem("listaCompras"))
+        : []
+    );
+  }, []);
+
+  useMemo(() => {
     if (localStorage.getItem("listaCompras")) {
-      JSON.parse(localStorage.getItem("listaCompras")).map((o) => {
-        for (let index = 0; index < props.plantilla.length; index++) {
+      props.ordenes.map((o) => {
+        for (let index = 0; index < 6; index++) {
           if (o.id === listaOrdenes[index].id) {
             listaOrdenes[index] = {
               ...listaOrdenes[index],
@@ -55,7 +63,7 @@ const Ordenar = (props) => {
             removerOrden={remover}
             ordenes={listaOrdenes}
           />
-          <h2 className='total-price'>Total: ${total.toFixed(2)}</h2>
+          <h2 className='total-price'>Total: ${(total / 2).toFixed(2)}</h2>
           <div className='buttons'>
             <Link to='/form-ordenar' className='btn-layer primary'>
               Pagar
