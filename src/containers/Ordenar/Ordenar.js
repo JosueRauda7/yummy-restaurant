@@ -6,8 +6,8 @@ import "./Ordenas.css";
 
 const Ordenar = (props) => {
   const [total, setTotal] = useState(0);
-  let redireccion = null;
   let listaOrdenes = props.plantilla;
+  let redireccion = null;
   if (!props.isLog) {
     Swal.fire("Tienes que iniciar sesión para Ordenar");
     redireccion = <Redirect to='/' />;
@@ -65,10 +65,10 @@ const Ordenar = (props) => {
           />
           <h2 className='total-price'>Total: ${(total / 2).toFixed(2)}</h2>
           <div className='buttons'>
-            <Link to='/form-ordenar' className='btn-layer primary'>
+            <Link to='/form-ordenar' className='primary'>
               Pagar
             </Link>
-            <Link to='/' className='btn-layer continue'>
+            <Link to='/' className='continue'>
               Continuar Comprando
             </Link>
           </div>

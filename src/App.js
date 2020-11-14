@@ -5,6 +5,7 @@ import LandingPage from "./containers/LandingPage";
 import Login from "./containers/Login";
 import Logout from "./containers/Logout";
 import Menu from "./containers/Menu/Menu";
+import FormOrdenes from "./containers/Ordenar/FormOrdenar/FormOrdenar";
 import Ordenar from "./containers/Ordenar/Ordenar";
 import Reservacion from "./containers/Reservacion/Reservacion";
 
@@ -147,6 +148,20 @@ function App() {
                 plantilla={initialCarrito}
                 anidarOrden={agregarCarrito}
                 isLog={isLogged}
+              />
+            )}
+          />
+          <Route
+            exact
+            path='/form-ordenar'
+            render={(props) => (
+              <FormOrdenes
+                reset={resetearCarrito}
+                ordenes={carrito}
+                actualizarOrdenes={setCarrito}
+                plantilla={initialCarrito}
+                isLog={isLogged}
+                {...props}
               />
             )}
           />

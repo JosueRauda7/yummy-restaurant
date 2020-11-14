@@ -1,5 +1,5 @@
 import { AddCircle, RemoveCircle } from "@material-ui/icons";
-import React from "react";
+import React, { Fragment } from "react";
 import "./TableOrdenes.css";
 
 const TableOrdenes = (props) => {
@@ -33,22 +33,26 @@ const TableOrdenes = (props) => {
                 <td className='cantidad'>
                   <span>x{orden.cantidad / 2}</span>
                   <div>
-                    <AddCircle
-                      onClick={() => props.anidarOrden(orden.id)}
-                      style={{
-                        color: "#E94F37",
-                        cursor: "pointer",
-                        fontSize: 40,
-                      }}
-                    />
-                    <RemoveCircle
-                      onClick={() => props.removerOrden(orden.id)}
-                      style={{
-                        color: "#28AFB0",
-                        cursor: "pointer",
-                        fontSize: 40,
-                      }}
-                    />
+                    {props.canModify ? (
+                      <Fragment>
+                        <AddCircle
+                          onClick={() => props.anidarOrden(orden.id)}
+                          style={{
+                            color: "#E94F37",
+                            cursor: "pointer",
+                            fontSize: 40,
+                          }}
+                        />
+                        <RemoveCircle
+                          onClick={() => props.removerOrden(orden.id)}
+                          style={{
+                            color: "#28AFB0",
+                            cursor: "pointer",
+                            fontSize: 40,
+                          }}
+                        />
+                      </Fragment>
+                    ) : null}
                   </div>
                 </td>
               </tr>

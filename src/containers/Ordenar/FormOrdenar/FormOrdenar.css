@@ -1,0 +1,70 @@
+.orden {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-ordenes {
+  width: 35%;
+}
+
+.form-ordenes h1 {
+  margin-bottom: 20px;
+}
+
+.campo {
+  padding: 10px;
+}
+
+.box-pay {
+  margin-top: 30px;
+  background-color: #d7d9d7;
+  padding: 10px;
+}
+
+.doble-input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.zip-code {
+  width: 40%;
+}
+
+.resumen {
+  width: 50%;
+}
+
+.controles .showSummary {
+  display: none;
+}
+
+@media only screen and (max-width: 590px) {
+  .controles .showSummary {
+    display: block;
+  }
+
+  .form-ordenes {
+    margin: 14;
+    width: 100%;
+  }
+  .doble-input {
+    flex-flow: column;
+  }
+
+  .doble-input .boton-1 {
+    margin: 5px 0;
+  }
+
+  .zip-code {
+    width: 100%;
+  }
+
+  .orden {
+    display: block;
+  }
+
+  .resumen {
+    width: 100%;
+    padding-left: 5px;
+  }
+}

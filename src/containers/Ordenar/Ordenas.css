@@ -16,7 +16,8 @@
   background-color: #3185fc;
 }
 
-.btn-layer {
+.primary,
+.continue {
   text-decoration: none;
   color: white;
   width: 20%;
@@ -40,7 +41,8 @@
     margin: 20px auto;
   }
 
-  .btn-layer {
+  .primary,
+  .continue {
     width: 100%;
     margin: 10px;
   }
