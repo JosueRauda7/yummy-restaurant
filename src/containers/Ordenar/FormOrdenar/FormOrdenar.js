@@ -17,9 +17,12 @@ const FormOrdenes = (props) => {
     direccion: "",
     detallePago: {
       nombreTarjeta: "",
-      numeroTarjeta: 0,
+      numeroTarjeta: "",
       fechaVencimiento: "",
+      secureCode: "",
+      zipCode: "",
     },
+    pedido: props.carrito,
   });
 
   let redireccion = null;
@@ -30,12 +33,83 @@ const FormOrdenes = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Swal.fire(
-      "Orden realizada con éxito!",
-      "Tú orden llegará en 30 minutos máximo!",
-      "success"
-    );
-    props.history.replace("/");
+    axios
+      .post("https://lic-restaurante.firebaseio.com/ordenes.json", form)
+      .then((res) => {
+        Swal.fire(
+          "Orden realizada con éxito!",
+          "Tú orden llegará en 30 minutos máximo!",
+          "success"
+        );
+        props.history.replace("/");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleName = (e) => {
+    setForm({
+      ...form,
+      nombre: e.target.value,
+    });
+  };
+  const handleDirection = (e) => {
+    setForm({
+      ...form,
+      direccion: e.target.value,
+    });
+  };
+  const handleNameCard = (e) => {
+    setForm({
+      ...form,
+      detallePago: {
+        ...form.detallePago,
+        nombreTarjeta: e.target.value,
+      },
+    });
+  };
+  const handleNumCard = (e) => {
+    if (e.target.value.length <= 16 && e.target.value.length >= 0) {
+      setForm({
+        ...form,
+        detallePago: {
+          ...form.detallePago,
+          numeroTarjeta: e.target.value,
+        },
+      });
+    }
+  };
+  const handleVence = (e) => {
+    if (e.target.value.length <= 5 && e.target.value.length >= 0) {
+      setForm({
+        ...form,
+        detallePago: {
+          ...form.detallePago,
+          fechaVencimiento: e.target.value,
+        },
+      });
+    }
+  };
+  const handleSecureCode = (e) => {
+    if (e.target.value.length <= 3 && e.target.value.length >= 0) {
+      setForm({
+        ...form,
+        detallePago: {
+          ...form.detallePago,
+          secureCode: e.target.value,
+        },
+      });
+    }
+  };
+  const handleZip = (e) => {
+    if (e.target.value.length <= 4 && e.target.value.length >= 0) {
+      setForm({
+        ...form,
+        detallePago: {
+          ...form.detallePago,
+          zipCode: e.target.value,
+        },
+      });
+    }
   };
 
   return (
@@ -50,6 +124,8 @@ const FormOrdenes = (props) => {
               style={{ width: "100%" }}
               label='Nombre Completo'
               variant='filled'
+              onChange={(e) => handleName(e)}
+              value={form.nombre}
             />
           </div>
           <div className='campo'>
@@ -58,6 +134,8 @@ const FormOrdenes = (props) => {
               style={{ width: "100%" }}
               label='Dirección'
               variant='filled'
+              onChange={(e) => handleDirection(e)}
+              value={form.direccion}
             />
           </div>
           <div className='box-pay'>
@@ -67,6 +145,9 @@ const FormOrdenes = (props) => {
                 style={{ width: "100%" }}
                 label='Nombre en tarjeta'
                 variant='filled'
+                onChange={(e) => handleNameCard(e)}
+                value={form.detallePago.nombreTarjeta}
+                autoComplete='off'
               />
             </div>
             <div className='campo'>
@@ -75,6 +156,9 @@ const FormOrdenes = (props) => {
                 style={{ width: "100%" }}
                 label='Número de tarjeta'
                 variant='filled'
+                onChange={(e) => handleNumCard(e)}
+                value={form.detallePago.numeroTarjeta}
+                autoComplete='off'
               />
             </div>
             <div className='campo'>
@@ -85,6 +169,9 @@ const FormOrdenes = (props) => {
                     style={{ width: "100%", marginRight: "30px" }}
                     label='MM/YY'
                     variant='filled'
+                    onChange={(e) => handleVence(e)}
+                    value={form.detallePago.fechaVencimiento}
+                    autoComplete='off'
                   />
                 </div>
                 <div className='compartimentado'>
@@ -93,6 +180,9 @@ const FormOrdenes = (props) => {
                     style={{ width: "100%" }}
                     label='Código de seguridad'
                     variant='filled'
+                    onChange={(e) => handleSecureCode(e)}
+                    value={form.detallePago.secureCode}
+                    autoComplete='off'
                   />
                 </div>
               </div>
@@ -103,6 +193,9 @@ const FormOrdenes = (props) => {
                   id='filled-basic'
                   label='Zip/Código Postal'
                   variant='filled'
+                  onChange={(e) => handleZip(e)}
+                  value={form.detallePago.zipCode}
+                  autoComplete='off'
                 />
               </div>
             </div>

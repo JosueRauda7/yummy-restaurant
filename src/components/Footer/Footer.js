@@ -81,7 +81,7 @@ const Footer = (props) => {
         ) : null}
         <div
           style={{
-            background: "#302525",
+            background: "#BE92A2",
           }}
           className='footer-text'>
           <p>

@@ -375,7 +375,8 @@ body {
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  margin-top: 50px;
+  margin-top: 80px;
+  margin-bottom: 228px;
 }
 .our-projects .deg-background {
   position: absolute;
@@ -383,7 +384,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 1);
+  background: #6247aa;
 }
 .our-projects .ejeZproject {
   position: relative;
@@ -416,16 +417,21 @@ body {
 }
 
 @media only screen and (max-width: 773px) {
+  .ejeZproject {
+    padding-top: 30px;
+    padding-bottom: 85px;
+  }
+
   .our-projects .container-project .project-img img {
     width: 80%;
     margin-bottom: 30px;
   }
   .our-projects {
-    margin-top: 30px;
+    margin-top: 15vh;
   }
   .our-projects .container-project {
     width: 100%;
-    margin-bottom: 100px;
+    margin-top: 60px;
     padding: 0;
   }
 }
@@ -454,7 +460,7 @@ body {
   width: 100%;
   height: 100%;
   place-items: center;
-  background: rgb(39, 1, 1);
+  background: #a06cd5;
 
   background-position: center;
   background-size: cover;
@@ -508,7 +514,7 @@ body {
   text-align: center;
   width: 100%;
   height: 100px;
-  background: rgba(0, 0, 0, 0.8);
+  background: #a06cd5;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -523,7 +529,7 @@ body {
 @media only screen and (max-width: 590px) {
   .footer .footer-text {
     width: 100%;
-    padding: 0px 30px;
+    padding: 0px 5px;
   }
   .footer .footer-text p {
     font-size: 17px;
