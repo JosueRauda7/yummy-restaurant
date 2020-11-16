@@ -1,26 +1,56 @@
 import React, { useState } from "react";
 import axios from "axios";
-import TextField from "@material-ui/core/TextField";
 import "./FormOrdenar.css";
-import { Button } from "@material-ui/core";
+import { Button, FormControl, InputLabel } from "@material-ui/core";
 import Swal from "sweetalert2";
 import { Redirect } from "react-router-dom";
 import TableOrdenes from "../../../components/TableOrdenes/TableOrdenes";
+import Input from "@material-ui/core/Input";
+import NumTarMask from "../../../components/Inputs/NumCardInput";
+import VenceMask from "../../../components/Inputs/VencimientoInput";
+import TelMask from "../../../components/Inputs/TelInput";
+import * as validate from "../../../utils/validate";
 
 const FormOrdenes = (props) => {
+  const [isValid, setIsValid] = useState(true);
   const [total, setTotal] = useState(0);
   const [showSummary, setShowSummary] = useState(true);
   let listaOrdenes = props.plantilla;
 
   const [form, setForm] = useState({
-    nombre: "",
-    direccion: "",
+    nombre: {
+      value: "",
+      isValid: false,
+    },
+    telefono: {
+      value: "",
+      isValid: false,
+    },
+    direccion: {
+      value: "",
+      isValid: false,
+    },
     detallePago: {
-      nombreTarjeta: "",
-      numeroTarjeta: "",
-      fechaVencimiento: "",
-      secureCode: "",
-      zipCode: "",
+      nombreTarjeta: {
+        value: "",
+        isValid: false,
+      },
+      numeroTarjeta: {
+        value: "",
+        isValid: false,
+      },
+      fechaVencimiento: {
+        value: "",
+        isValid: false,
+      },
+      secureCode: {
+        value: "",
+        isValid: false,
+      },
+      zipCode: {
+        value: "",
+        isValid: false,
+      },
     },
     pedido: props.carrito,
   });
@@ -33,29 +63,61 @@ const FormOrdenes = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("https://lic-restaurante.firebaseio.com/ordenes.json", form)
-      .then((res) => {
-        Swal.fire(
-          "Orden realizada con éxito!",
-          "Tú orden llegará en 30 minutos máximo!",
-          "success"
-        );
-        props.history.replace("/");
-      })
-      .catch((err) => console.log(err));
+    if (
+      form.nombre.isValid &&
+      form.direccion.isValid &&
+      form.telefono.isValid &&
+      form.detallePago.nombreTarjeta.isValid &&
+      form.detallePago.numeroTarjeta.isValid &&
+      form.detallePago.fechaVencimiento.isValid &&
+      form.detallePago.secureCode.isValid &&
+      form.detallePago.zipCode.isValid
+    ) {
+      axios
+        .post("https://lic-restaurante.firebaseio.com/ordenes.json", form)
+        .then((res) => {
+          Swal.fire(
+            "Orden realizada con éxito!",
+            "Tú orden llegará en 30 minutos máximo!",
+            "success"
+          );
+          props.reset();
+          props.history.replace("/");
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setIsValid(false);
+    }
   };
 
   const handleName = (e) => {
     setForm({
       ...form,
-      nombre: e.target.value,
+      nombre: {
+        ...form.nombre,
+        value: e.target.value,
+        isValid: validate.esStringRequerido(e.target.value),
+      },
     });
   };
   const handleDirection = (e) => {
     setForm({
       ...form,
-      direccion: e.target.value,
+      direccion: {
+        ...form.direccion,
+        value: e.target.value,
+        isValid: validate.esStringRequerido(e.target.value),
+      },
+    });
+  };
+  const handleTelefono = (e) => {
+    setForm({
+      ...form,
+      telefono: {
+        ...form.telefono,
+        value: e.target.value,
+        isValid: validate.esTelefono(e.target.value),
+      },
     });
   };
   const handleNameCard = (e) => {
@@ -63,17 +125,28 @@ const FormOrdenes = (props) => {
       ...form,
       detallePago: {
         ...form.detallePago,
-        nombreTarjeta: e.target.value,
+        nombreTarjeta: {
+          ...form.detallePago.nombreTarjeta,
+          value: e.target.value,
+          isValid: validate.esStringRequerido(e.target.value),
+        },
       },
     });
   };
   const handleNumCard = (e) => {
-    if (e.target.value.length <= 16 && e.target.value.length >= 0) {
+    if (
+      e.target.value.trim().length <= 19 &&
+      e.target.value.trim().length >= 0
+    ) {
       setForm({
         ...form,
         detallePago: {
           ...form.detallePago,
-          numeroTarjeta: e.target.value,
+          numeroTarjeta: {
+            ...form.detallePago.numeroTarjeta,
+            value: e.target.value,
+            isValid: validate.esNumeroTarjeta(e.target.value),
+          },
         },
       });
     }
@@ -84,7 +157,11 @@ const FormOrdenes = (props) => {
         ...form,
         detallePago: {
           ...form.detallePago,
-          fechaVencimiento: e.target.value,
+          fechaVencimiento: {
+            ...form.detallePago.fechaVencimiento,
+            value: e.target.value,
+            isValid: validate.esFechaVencimiento(e.target.value),
+          },
         },
       });
     }
@@ -95,7 +172,11 @@ const FormOrdenes = (props) => {
         ...form,
         detallePago: {
           ...form.detallePago,
-          secureCode: e.target.value,
+          secureCode: {
+            ...form.detallePago.secureCode,
+            value: e.target.value,
+            isValid: validate.esSecureCode(e.target.value),
+          },
         },
       });
     }
@@ -106,7 +187,11 @@ const FormOrdenes = (props) => {
         ...form,
         detallePago: {
           ...form.detallePago,
-          zipCode: e.target.value,
+          zipCode: {
+            ...form.detallePago.zipCode,
+            value: e.target.value,
+            isValid: validate.esNumero(e.target.value),
+          },
         },
       });
     }
@@ -116,87 +201,163 @@ const FormOrdenes = (props) => {
     <div className='container'>
       {redireccion}
       <div className='orden'>
-        <form className='form-ordenes' onSubmit={handleSubmit}>
+        <form
+          className='form-ordenes'
+          onSubmit={handleSubmit}
+          autoComplete='off'>
           <h1>Datos de Orden</h1>
           <div className='campo'>
-            <TextField
-              id='filled-basic'
-              style={{ width: "100%" }}
-              label='Nombre Completo'
-              variant='filled'
-              onChange={(e) => handleName(e)}
-              value={form.nombre}
-            />
+            <FormControl style={{ width: "100%" }}>
+              <InputLabel htmlFor='filled-basic'>Nombre Completo</InputLabel>
+              <Input
+                error={!isValid && !form.nombre.isValid}
+                helperText={
+                  !isValid && !form.nombre.isValid
+                    ? "El nombre es requerido"
+                    : ""
+                }
+                name='textmask'
+                id='filled-basic'
+                onChange={(e) => handleName(e)}
+                value={form.nombre.value}
+              />
+            </FormControl>
           </div>
           <div className='campo'>
-            <TextField
-              id='filled-basic'
-              style={{ width: "100%" }}
-              label='Dirección'
-              variant='filled'
-              onChange={(e) => handleDirection(e)}
-              value={form.direccion}
-            />
+            <FormControl style={{ width: "100%" }}>
+              <InputLabel htmlFor='filled-basic'>Dirección</InputLabel>
+              <Input
+                name='textmask'
+                id='filled-basic'
+                error={!isValid && !form.direccion.isValid}
+                helperText={
+                  !isValid && !form.direccion.isValid
+                    ? "La dirección es requerida"
+                    : ""
+                }
+                onChange={(e) => handleDirection(e)}
+                value={form.direccion.value}
+              />
+            </FormControl>
+          </div>
+          <div className='campo'>
+            <FormControl style={{ width: "100%" }}>
+              <InputLabel htmlFor='filled-basic'>Teléfono</InputLabel>
+              <Input
+                name='textmask'
+                id='filled-basic'
+                error={!isValid && !form.telefono.isValid}
+                helperText={
+                  !isValid && !form.telefono.isValid ? "Teléfono inválido" : ""
+                }
+                inputComponent={TelMask}
+                onChange={(e) => handleTelefono(e)}
+                value={form.telefono.value}
+              />
+            </FormControl>
           </div>
           <div className='box-pay'>
             <div className='campo'>
-              <TextField
-                id='filled-basic'
-                style={{ width: "100%" }}
-                label='Nombre en tarjeta'
-                variant='filled'
-                onChange={(e) => handleNameCard(e)}
-                value={form.detallePago.nombreTarjeta}
-                autoComplete='off'
-              />
+              <FormControl style={{ width: "100%" }}>
+                <InputLabel htmlFor='filled-basic'>
+                  Nombre en tarjeta
+                </InputLabel>
+                <Input
+                  name='textmask'
+                  id='filled-basic'
+                  error={!isValid && !form.detallePago.nombreTarjeta.isValid}
+                  helperText={
+                    !isValid && !form.detallePago.nombreTarjeta.isValid
+                      ? "Nombre de tarjeta requerido"
+                      : ""
+                  }
+                  onChange={(e) => handleNameCard(e)}
+                  value={form.detallePago.nombreTarjeta.value}
+                />
+              </FormControl>
             </div>
             <div className='campo'>
-              <TextField
-                id='filled-basic'
-                style={{ width: "100%" }}
-                label='Número de tarjeta'
-                variant='filled'
-                onChange={(e) => handleNumCard(e)}
-                value={form.detallePago.numeroTarjeta}
-                autoComplete='off'
-              />
+              <FormControl style={{ width: "100%" }}>
+                <InputLabel htmlFor='filled-basic'>
+                  Número de Tarjeta
+                </InputLabel>
+                <Input
+                  name='textmask'
+                  id='filled-basic'
+                  error={!isValid && !form.detallePago.numeroTarjeta.isValid}
+                  helperText={
+                    !isValid && !form.detallePago.numeroTarjeta.isValid
+                      ? "Número de tarjeta inválido"
+                      : ""
+                  }
+                  inputComponent={NumTarMask}
+                  onChange={(e) => handleNumCard(e)}
+                  value={form.detallePago.numeroTarjeta.value}
+                />
+              </FormControl>
             </div>
             <div className='campo'>
               <div className='doble-input'>
                 <div className='compartimentado'>
-                  <TextField
-                    id='filled-basic'
-                    style={{ width: "100%", marginRight: "30px" }}
-                    label='MM/YY'
-                    variant='filled'
-                    onChange={(e) => handleVence(e)}
-                    value={form.detallePago.fechaVencimiento}
-                    autoComplete='off'
-                  />
+                  <FormControl style={{ width: "100%", marginRight: "30px" }}>
+                    <InputLabel htmlFor='filled-basic'>MM/YY</InputLabel>
+                    <Input
+                      name='textmask'
+                      id='filled-basic'
+                      error={
+                        !isValid && !form.detallePago.fechaVencimiento.isValid
+                      }
+                      helperText={
+                        !isValid && !form.detallePago.fechaVencimiento.isValid
+                          ? "Fecha de vencimiento inválido"
+                          : ""
+                      }
+                      inputComponent={VenceMask}
+                      onChange={(e) => handleVence(e)}
+                      value={form.detallePago.fechaVencimiento.value}
+                    />
+                  </FormControl>
                 </div>
                 <div className='compartimentado'>
-                  <TextField
-                    id='filled-basic'
-                    style={{ width: "100%" }}
-                    label='Código de seguridad'
-                    variant='filled'
-                    onChange={(e) => handleSecureCode(e)}
-                    value={form.detallePago.secureCode}
-                    autoComplete='off'
-                  />
+                  <FormControl style={{ width: "100%" }}>
+                    <InputLabel htmlFor='filled-basic'>
+                      Código de seguridad
+                    </InputLabel>
+                    <Input
+                      name='textmask'
+                      id='filled-basic'
+                      error={!isValid && !form.detallePago.secureCode.isValid}
+                      helperText={
+                        !isValid && !form.detallePago.secureCode.isValid
+                          ? "Código de seguridad inválido"
+                          : ""
+                      }
+                      onChange={(e) => handleSecureCode(e)}
+                      value={form.detallePago.secureCode.value}
+                    />
+                  </FormControl>
                 </div>
               </div>
             </div>
             <div className='campo'>
               <div className='zip-code'>
-                <TextField
-                  id='filled-basic'
-                  label='Zip/Código Postal'
-                  variant='filled'
-                  onChange={(e) => handleZip(e)}
-                  value={form.detallePago.zipCode}
-                  autoComplete='off'
-                />
+                <FormControl style={{ width: "100%" }}>
+                  <InputLabel htmlFor='filled-basic'>
+                    Zip/Código Postal
+                  </InputLabel>
+                  <Input
+                    name='textmask'
+                    id='filled-basic'
+                    error={!isValid && !form.detallePago.zipCode.isValid}
+                    helperText={
+                      !isValid && !form.detallePago.zipCode.isValid
+                        ? "Zip/Código Postal inválido"
+                        : ""
+                    }
+                    onChange={(e) => handleZip(e)}
+                    value={form.detallePago.zipCode.value}
+                  />
+                </FormControl>
               </div>
             </div>
           </div>
