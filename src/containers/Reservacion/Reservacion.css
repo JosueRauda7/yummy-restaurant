@@ -1,0 +1,68 @@
+.RestaurantePicture h2 {
+  text-align: right;
+  margin-left: 10px;
+}
+
+.formReserv1 {
+  width: 40%;
+  margin: auto;
+  padding: 20px;
+}
+
+.RestaurantePicture {
+  width: 75%;
+  margin: 50px auto;
+}
+
+.form-control {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  width: 15%;
+  margin: 5px auto;
+}
+
+.blue,
+.red {
+  width: 50px;
+  height: 50px;
+}
+
+.blue {
+  background-color: #3083dc;
+}
+.red {
+  background-color: #ff1053;
+}
+
+@media only screen and (max-width: 446px) {
+  .RestaurantePicture {
+    width: 124%;
+    margin-left: -36px;
+  }
+
+  .legend {
+    width: 25%;
+    margin: 5px auto;
+  }
+
+  .RestaurantePicture h2 {
+    text-align: center;
+  }
+
+  .blue,
+  .red {
+    width: 40px;
+    height: 40px;
+  }
+
+  .formReserv1 {
+    width: 100%;
+    margin: auto;
+    padding: 20px;
+  }
+}

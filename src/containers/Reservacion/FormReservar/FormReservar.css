@@ -1,0 +1,11 @@
+.form-reservacion {
+  width: 40%;
+  margin: auto;
+}
+
+@media only screen and (max-width: 446px) {
+  .form-reservacion {
+    width: 100%;
+    margin: auto;
+  }
+}

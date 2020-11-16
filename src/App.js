@@ -7,6 +7,7 @@ import Logout from "./containers/Logout";
 import Menu from "./containers/Menu/Menu";
 import FormOrdenes from "./containers/Ordenar/FormOrdenar/FormOrdenar";
 import Ordenar from "./containers/Ordenar/Ordenar";
+import FormReservar from "./containers/Reservacion/FormReservar/FormReservar";
 import Reservacion from "./containers/Reservacion/Reservacion";
 
 function App() {
@@ -74,6 +75,10 @@ function App() {
       }
     }
   }, []);
+
+  const resetearReservacion = () => {
+    localStorage.removeItem("reservacion");
+  };
 
   const resetearCarrito = () => {
     localStorage.removeItem("listaCompras");
@@ -168,7 +173,24 @@ function App() {
           <Route
             exact
             path='/reservacion'
-            render={() => <Reservacion isLog={isLogged} />}
+            render={(props) => (
+              <Reservacion
+                {...props}
+                reset={resetearReservacion}
+                isLog={isLogged}
+              />
+            )}
+          />
+          <Route
+            exact
+            path='/form-reservar'
+            render={(props) => (
+              <FormReservar
+                {...props}
+                reset={resetearReservacion}
+                isLog={isLogged}
+              />
+            )}
           />
           <Route
             exact
