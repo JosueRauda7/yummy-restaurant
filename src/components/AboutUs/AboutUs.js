@@ -19,8 +19,16 @@ const AboutUs = (props) => {
           mejores en lo que hacemos.
         </p>
         <div className='about-gallery'>
-          <img
+          {/* <img
             src='https://image.freepik.com/free-vector/group-professional-chefs-man-woman-chefs_36082-488.jpg'
+            alt=''
+          /> */}
+          <img
+            src='https://www.guatemala.com/fotos/201710/Giuseppe-Verdi-Restaurante-885x500.jpg'
+            alt=''
+          />
+          <img
+            src='https://loff.it/wp-content/uploads/2017/04/loffit-el-restaurante-solomillo-abre-su-patio-y-terraza-al-calor-de-la-primavera-06.jpg'
             alt=''
           />
         </div>
